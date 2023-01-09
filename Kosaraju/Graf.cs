@@ -9,7 +9,6 @@ namespace Kosaraju
 {
     public class Graf
     {
-        BasicStructures.PriorityQueue<int> queue;
         Stack<int> stack;
         bool[] isVisit;
         int[] component;
@@ -21,7 +20,6 @@ namespace Kosaraju
             this.G = g;
             this.H = Invert(g);
             stack = new Stack<int>();
-            queue = new BasicStructures.PriorityQueue<int>();
             isVisit = new bool[H.Length];
             component = new int[H.Length];
             for (int i = 0; i < H.Length; i++)
@@ -36,23 +34,21 @@ namespace Kosaraju
                     DFS1(u);
                 }
             }
-
-            for(int i = 0; i < component.Length; i++)
-            { 
-                //int vr = stack.Pop();
-                int vr = queue.Dequeue();
-                if (component[vr] < 0)
+            idx = 1;
+            for (int i = 0; i < component.Length; i++)
+            {
+                int u = stack.Pop();
+                if (component[u] < 0)
                 {
-                    DFS2(vr);
+                    DFS2(u);
                     idx++;
                 }
             }
         }
         void DFS1(int v)
         {
-            Console.WriteLine(v);
             isVisit[v] = true;
-            queue.Enqueue(v);
+            stack.Push(v);
             for (int i = 0; i < H[v].Length; i++)
             {
                 var u = H[v][i];
@@ -61,8 +57,8 @@ namespace Kosaraju
                     DFS1(u);
                 }
             }
-            stack.Push(v);
         }
+
         void DFS2(int v)
         {
             component[v] = idx;
