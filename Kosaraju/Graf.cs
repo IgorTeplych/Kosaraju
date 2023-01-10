@@ -10,66 +10,58 @@ namespace Kosaraju
     public class Graf
     {
         Stack<int> stack;
-        bool[] isVisit;
-        int[] component;
+        bool[] visited;
         int[][] H;
         int[][] G;
-        int idx = 1;
-        public void Kosaraju(int[][] g)
+        List<List<int>> components;
+        List<int> component;
+        public List<List<int>> Kosaraju(int[][] g)
         {
             this.G = g;
             this.H = Invert(g);
             stack = new Stack<int>();
-            isVisit = new bool[H.Length];
-            component = new int[H.Length];
-            for (int i = 0; i < H.Length; i++)
-            {
-                component[i] = -1;
-            }
+            visited = new bool[H.Length];
+            for (int u = 0; u < G.Length; u++)
+                DFS1(u);
 
-            for (int u = 0; u < H.Length; u++)
+            components = new List<List<int>>();
+            visited = new bool[H.Length];
+            while (stack.Any())
             {
-                if (!isVisit[u])
-                {
-                    DFS1(u);
-                }
+                component = new List<int>();
+                DFS2(stack.Pop());
+                if (component.Count != 0)
+                    components.Add(component);
             }
-            idx = 1;
-            for (int i = 0; i < component.Length; i++)
-            {
-                int u = stack.Pop();
-                if (component[u] < 0)
-                {
-                    DFS2(u);
-                    idx++;
-                }
-            }
+            return components;
         }
+
         void DFS1(int v)
         {
-            isVisit[v] = true;
+            if (visited[v])
+                return;
+            visited[v] = true;
+
+            for (int i = 0; i < G[v].Length; i++)
+            {
+                int u = G[v][i];
+                DFS1(u);
+            }
             stack.Push(v);
+        }
+        void DFS2(int v, int idx = 0)
+        {
+            if (visited[v])
+                return;
+            visited[v] = true;
+
             for (int i = 0; i < H[v].Length; i++)
             {
-                var u = H[v][i];
-                if (!isVisit[u])
-                {
-                    DFS1(u);
-                }
+                int u = H[v][i];
+                DFS2(u);
             }
+            component.Add(v);
         }
-
-        void DFS2(int v)
-        {
-            component[v] = idx;
-            for(int i = 0; i < G[v].Length; i++)
-            {
-                var u = G[v][i];
-                if (component[u] < 0)
-                    DFS2(u);
-            }
-        }
-
         int[][] Invert(int[][] vect)
         {
             SingleArray<int>[] invArr = new SingleArray<int>[vect.Length];
