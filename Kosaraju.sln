@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kosaraju", "Kosaraju\Kosaraju.csproj", "{DD077818-3BAE-497D-A6B0-70AB9A46A397}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kosaraju", "Kosaraju\Kosaraju.csproj", "{DD077818-3BAE-497D-A6B0-70AB9A46A397}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kosaraju.Tests", "Kosaraju.Tests\Kosaraju.Tests.csproj", "{21B405C2-B6E7-40FC-AD0E-1CD55BA31CF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DD077818-3BAE-497D-A6B0-70AB9A46A397}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD077818-3BAE-497D-A6B0-70AB9A46A397}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD077818-3BAE-497D-A6B0-70AB9A46A397}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21B405C2-B6E7-40FC-AD0E-1CD55BA31CF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21B405C2-B6E7-40FC-AD0E-1CD55BA31CF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21B405C2-B6E7-40FC-AD0E-1CD55BA31CF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21B405C2-B6E7-40FC-AD0E-1CD55BA31CF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
