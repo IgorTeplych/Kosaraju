@@ -1,5 +1,4 @@
 ﻿using Kosaraju;
-using Kosaraju.MyStructs;
 
 static class Proggram
 {
