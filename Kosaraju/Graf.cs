@@ -13,29 +13,42 @@ namespace Kosaraju
         bool[] visited;
         int[][] H;
         int[][] G;
-        List<List<int>> components;
-        List<int> component;
+        List<List<int>> stronglies;
+        List<int> strongly;
+        int[] components;
         public List<List<int>> Kosaraju(int[][] g)
         {
             this.G = g;
             this.H = Invert(g);
             stack = new Stack<int>();
             visited = new bool[H.Length];
+            components = new int[G.Length];
+            for (int i = 0; i < components.Length; i++)
+                components[i] = -1;
+
             for (int u = 0; u < G.Length; u++)
                 DFS1(u);
 
-            components = new List<List<int>>();
+            stronglies = new List<List<int>>();
             visited = new bool[H.Length];
             while (stack.Any())
             {
-                component = new List<int>();
+                strongly = new List<int>();
                 DFS2(stack.Pop());
-                if (component.Count != 0)
-                    components.Add(component);
+                if (strongly.Count != 0)
+                {
+                    stronglies.Add(strongly);
+                    for (int i = 1; i < strongly.Count; i++)
+                        components[strongly[i - 1]] = strongly[i];
+                }
             }
+            return stronglies;
+        }
+        public int[] GetStronglyConnectedComponent(int[][] g)
+        {
+            Kosaraju(g);
             return components;
         }
-
         void DFS1(int v)
         {
             if (visited[v])
@@ -54,13 +67,12 @@ namespace Kosaraju
             if (visited[v])
                 return;
             visited[v] = true;
-
             for (int i = 0; i < H[v].Length; i++)
             {
                 int u = H[v][i];
                 DFS2(u);
             }
-            component.Add(v);
+            strongly.Add(v);
         }
         int[][] Invert(int[][] vect)
         {
